@@ -1,0 +1,423 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <GL/freeglut.h>
+#include <GL/glut.h>
+#include <cmath>
+
+//LAB # 07
+/*
+class Canvas {
+public:
+    int width, height;
+
+    Canvas(int width, int height) : width(width), height(height) {}
+
+    void initialize() {
+        glClearColor(1.0, 1.0, 1.0, 0.0);
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(0, width, 0, height, -1.0, 1.0);
+    }
+
+    void moveTo(float x, float y) {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(x, y);
+    }
+
+    void lineTo(float x, float y) {
+        glVertex2f(x, y);
+    }
+
+    void display() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(0.0, 0.0, 1.0);
+        glEnd();
+        glFlush();
+    }
+    void drawingMarker(float x, float y) {
+
+    glBegin(GL_LINE_STRIP);
+    glVertex2f(x, y + 10);       // Top
+    glVertex2f(x + 2, y + 2);    // Top right
+    glVertex2f(x + 10, y);       // Right
+    glVertex2f(x + 2, y - 2);    // Bottom right
+    glVertex2f(x, y - 10);       // Bottom
+    glVertex2f(x - 2, y - 2);    // Bottom left
+    glVertex2f(x - 10, y);       // Left
+    glVertex2f(x - 2, y + 2);    // Top left
+    glVertex2f(x, y + 10);       // Top
+    glEnd();
+//
+//      // Draw the circle
+//    glBegin(GL_LINE_STRIP);
+//    for (int i = 0; i <= 360; ++i) {
+//        float angle = i * 3.14159265 / 180.0;
+//        float cx = x + 15 * cos(angle);  // 15 is the radius of the circle
+//        float cy = y + 15 * sin(angle);
+//        glVertex2f(cx, cy);
+//    }
+//    glEnd();
+}
+};
+
+Canvas cvs(700, 400);
+
+void drawMarker() {
+	cvs.drawingMarker(0.0, 100.0);
+	//1st
+    cvs.moveTo(0, 100);
+    cvs.lineTo(100, 200);
+    cvs.drawingMarker(100.0, 200.0);
+    //2nd
+    cvs.moveTo(100, 200);
+    cvs.lineTo(200, 300);
+    cvs.drawingMarker(200.0, 300.0);
+    //3rd
+    cvs.moveTo(200, 300);
+    cvs.lineTo(300, 10);
+    cvs.drawingMarker(300.0, 10.0);
+    //4th
+    cvs.moveTo(300, 10);
+    cvs.lineTo(500, 200);
+    cvs.drawingMarker(500.0, 200.0);
+    //5th
+    cvs.moveTo(500,200);
+    cvs.lineTo(600, 10);
+    cvs.drawingMarker(600.0, 10.0);
+    
+    
+}
+
+void display() {
+    
+    cvs.display();
+    drawMarker();
+	glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(cvs.width, cvs.height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Marker Drawing");
+
+    cvs.initialize();
+
+    glutDisplayFunc(display);
+
+    glutMainLoop();
+
+    return 0;
+}
+
+#include <cmath>
+#include <GL/glut.h>
+
+class Canvas {
+public:
+    int width, height;
+    
+    Canvas(int width, int height) : width(width), height(height) {}
+
+    void initialize() {
+        glClearColor(1.0, 1.0, 1.0, 0.0);
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(0, width, 0, height, -1.0, 1.0);
+    }
+
+    class Point {
+    public:
+        float x, y;
+
+        void set(float newX, float newY) {
+            x = newX;
+            y = newY;
+        }
+    };
+
+    Point CP;
+
+    void moveTo(float x, float y) {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void lineTo(float x, float y) {
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void moveRel(float dx, float dy) {
+        CP.set(CP.x + dx, CP.y + dy);
+    }
+
+    void lineRel(float dx, float dy) {
+        float x = CP.x + dx, y = CP.y + dy;
+        lineTo(x, y);
+        CP.set(x, y);
+    }
+
+    void display() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(0.0, 0.0, 1.0);
+        glEnd();
+        glFlush();
+    }
+};
+
+Canvas cvs(700, 400);
+
+void arrow(float f, float h, float t, float w){ 
+    cvs.lineRel(-w - t / 2, -f); // down the left side
+    cvs.lineRel(w, 0);
+    cvs.lineRel(0, -h);
+    cvs.lineRel(t, 0); // across
+    cvs.lineRel(0, h); // back up
+    cvs.lineRel(w, 0);
+    cvs.lineRel(-w - t / 2, f);
+}
+
+
+void display() {
+    cvs.display();
+    arrow(100.0,120.0,100.0,120.0);
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(cvs.width, cvs.height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Marker Drawing");
+
+    cvs.initialize();
+
+    glutDisplayFunc(display);
+
+    glutMainLoop();
+
+    return 0;
+}
+*/
+/*
+
+#include <cmath>
+#include <GL/glut.h>
+
+class Canvas {
+public:
+    int width, height;
+
+    Canvas(int width, int height) : width(width), height(height) {}
+
+    void initialize() {
+        glClearColor(1.0, 1.0, 1.0, 0.0);
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(0, width, 0, height, -1.0, 1.0);
+    }
+
+    class Point {
+    public:
+        float x, y;
+
+        void set(float newX, float newY) {
+            x = newX;
+            y = newY;
+        }
+    };
+
+    Point CP;
+
+    void moveTo(float x, float y) {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void lineTo(float x, float y) {
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void moveRel(float dx, float dy);
+
+    void lineRel(float dx, float dy);
+
+    void display() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(0.0, 0.0, 1.0);
+    }
+};
+
+Canvas cvs(700, 400);
+
+void arrow(float f, float h, float t, float w) {
+      cvs.lineRel(-w - t / 2, -f); // 1st => / 
+      cvs.lineRel(w, 0);// 2nd -
+      cvs.lineRel(0, -h);// 3rd |
+      cvs.lineRel(-w, 0);// 4th -
+      cvs.lineRel(w + t / 2, -f+20);// 5th \.
+      cvs.lineRel(w + t / 2, f-20); // 6th /
+      cvs.lineRel(-w, 0);// 7th -
+      cvs.lineRel(0, h); // 8th |
+      cvs.lineRel(w, 0);// 9th -
+	  cvs.lineRel(-w - t / 2, f); // 10th \.
+}
+
+void Canvas :: moveRel(float dx, float dy) {// :: scope resolution operator 
+    CP.set(CP.x + dx, CP.y + dy);
+}
+void Canvas :: lineRel(float dx, float dy)
+{
+    float x = CP.x + dx, y = CP.y + dy;
+    lineTo(x, y);
+    CP.set(x, y);
+}
+
+
+void display() {
+    cvs.display();
+    cvs.moveTo(350.0, 300.0);
+    arrow(100.0, 120.0, 100.0, 120.0);
+    glEnd();  // Add this line to end the GL_LINE_LOOP
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(cvs.width, cvs.height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Arrow  Drawing");
+
+    cvs.initialize();
+
+    glutDisplayFunc(display);
+
+    glutMainLoop();
+
+    return 0;
+}
+
+*/
+
+#include <cmath>
+#include <GL/glut.h>
+
+class Canvas {
+public:
+    int width, height;
+    float CD;
+
+    Canvas(int width, int height) : width(width), height(height) {}
+
+    void initialize() {
+        glClearColor(1.0, 1.0, 1.0, 0.0);
+        glMatrixMode(GL_PROJECTION);
+        glOrtho(0, width, 0, height, -1.0, 1.0);
+    }
+
+    class Point {
+    public:
+        float x, y;
+
+        void set(float newX, float newY) {
+            x = newX;
+            y = newY;
+        }
+    };
+
+    Point CP;
+
+    void moveTo(float x, float y) {
+        glBegin(GL_LINE_STRIP);
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void lineTo(float x, float y) {
+        glVertex2f(x, y);
+        CP.set(x, y);
+    }
+
+    void moveRel(float dx, float dy);
+
+    void lineRel(float dx, float dy);
+    
+    void turnTo(float angle);
+    
+    void turn(float angle);
+    
+    void forward(float dist, int isVisible);
+
+    void display() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(0.0, 0.0, 1.0);
+    }
+};
+
+Canvas cvs(700, 400);
+
+void Canvas :: moveRel(float dx, float dy) {// :: scope resolution operator 
+    CP.set(CP.x + dx, CP.y + dy);
+}
+void Canvas :: lineRel(float dx, float dy)
+{
+    float x = CP.x + dx, y = CP.y + dy;
+    lineTo(x, y);
+    CP.set(x, y);
+}
+void Canvas:: turnTo(float angle){
+    CD = angle;
+}
+void Canvas:: turn(float angle){
+    CD += angle;
+}
+
+void Canvas::forward(float dist, int isVisible)
+{
+    const float RadPerDeg = 0.017453393; // radians per degree
+    float x = CP.x + dist * cos(RadPerDeg * CD);
+    float y = CP.y + dist * sin(RadPerDeg * CD);
+
+    if (isVisible)
+        lineTo(x, y);
+    else
+        moveTo(x, y);
+}
+
+
+
+void display() {
+    cvs.display();
+    cvs.moveTo(150.0, 100.0);
+    cvs.forward(3 * 100, 1); // L is the length of the short sides
+    cvs.turn(90);
+    cvs.forward(100, 1);
+    cvs.turn(90);
+    cvs.forward(100, 1);
+    cvs.turn(90);
+
+    glEnd();  // Add this line to end the GL_LINE_LOOP
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(cvs.width, cvs.height);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Arrow  Drawing");
+
+    cvs.initialize();
+
+    glutDisplayFunc(display);
+
+    glutMainLoop();
+
+    return 0;
+}
+
