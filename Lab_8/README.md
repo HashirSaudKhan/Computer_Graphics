@@ -15,3 +15,5 @@ This repository contains a simple animation program built using OpenGL and GLUT.
 2. Compile the code using a C++ compiler.
 3. Run the executable to see the animation.
 
+![Windmill](https://github.com/HashirSaudKhan/Computer_Graphics/assets/93030144/865d9aed-3821-420b-ad62-f3735113c389)
+
