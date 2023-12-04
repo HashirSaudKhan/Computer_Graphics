@@ -1,0 +1,307 @@
+// Windmill
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <GL/freeglut.h>
+#include <GL/glut.h>
+#include <cmath>
+
+
+void display (void); // draw everything
+void drawWind_1(void);  // draw single blade
+void drawWind_2(void); 
+void drawWind_3(void);
+void drawWind_4(void);
+void drawwindmill(void); //complete this to complete windmill i.e. call drawWind() in it
+void drawplane();  // work in this function
+                   //  for crash landing of plane i.e. animate and collision with land 
+
+void drawlandscape() ;// do nothing with it 
+void Timer( int value); // update varible for animation here
+
+void keyboard(unsigned char key, int x, int y);
+void init(void) ;
+void reshape(GLsizei w, GLsizei h) ;
+void landplane();
+float windmillRotationAngle = 0.0;
+float planeX = 245.0; // Initial X position of the plane
+float planeY = 230.0; // Initial Y position of the plane
+bool planeLanding = false; // Flag to indicate if the plane is landing
+
+   
+void display()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	drawlandscape();
+	
+	drawwindmill();
+
+	//drawplane();
+	glPushMatrix();
+	glTranslatef(230.0, 150.0, 0.0);
+	glRotatef(20.0, 0.0, 0.0, 1.0);
+	glTranslatef(-230.0, -150.0, 0.0);
+
+	landplane();
+	glPopMatrix();
+
+	glutSwapBuffers();
+}
+
+   
+   void drawWind_1() // single Triangle
+   {
+   
+   glBegin(GL_TRIANGLES);
+   
+      glColor3f(0.8, 0.8, 0.8);
+      glVertex2f(125.0, 90.0);
+      glVertex2f(140.0, 120.0);
+      glVertex2f(160.0, 120.0);
+      
+   glEnd();
+   
+   
+   }
+   
+    void drawWind_2() // single Triangle
+   {
+   
+   glBegin(GL_TRIANGLES);
+   
+
+      glColor3f(0.8, 0.8, 0.8);
+      glVertex2f(125.0, 90.0);
+      glVertex2f(155.0, 65.0);
+      glVertex2f(140.0, 55.0);
+      
+   glEnd();
+   }
+   
+   void drawWind_3()
+   {
+   	
+   glBegin(GL_TRIANGLES);
+   
+
+      glColor3f(0.8, 0.8, 0.8);
+      glVertex2f(125.0, 90.0);
+      glVertex2f(110.0, 55.0);
+      glVertex2f(95.0, 65.0);
+      
+   glEnd();
+   }
+   
+   void drawWind_4()
+   {
+   
+   glBegin(GL_TRIANGLES);
+   
+
+      glColor3f(0.8, 0.8, 0.8);
+      glVertex2f(125.0, 90.0);
+      glVertex2f(110.0, 120.0);
+      glVertex2f(90.0, 120.0);
+      
+   glEnd();
+   
+   }
+   
+   
+    void drawwindmill()   // complete windmill in this body
+   { 
+     /* Draw a windmill */   
+            
+    for (int i = 0; i < 1; i++)
+	{
+		drawWind_1();
+      	drawWind_2();
+      	drawWind_3();
+      	drawWind_4();
+	}
+
+
+}
+     
+   void Timer(int value)
+{
+	// Set the timer 
+	display();
+	glutTimerFunc(30, Timer, 1);
+
+	if (planeY <= 50.0)
+	{
+		planeLanding = false;
+	}
+	
+}
+
+
+void landplane()
+{		
+		//glTranslatef(180.0, 210.0, 0.0);: This function translates the current matrix (modelview matrix in this case).
+		// It moves the drawing coordinate system to a new position
+		//It moves the plane 180 units to the right, 210 units up, and 0 units in the z-direction.
+		glTranslatef(180.0, 210.0, 0.0);
+		
+		//glRotatef(-60.0, 0.0, 0.0, 1.0);: This function rotates the current matrix around the specified axis. 
+		//The rotation is around the z-axis (the third parameter is 1.0)
+		//In this case, it rotates by -60 degrees around the z-axis
+		glRotatef(-60.0,0.0,0.0,1.0);		
+		
+		//glTranslatef(-230.0, -245.0, 0.0);: Another translation, moving the plane back 230 units to the left 
+		//and 245 units down.
+		glTranslatef(-230.0, -245.0, 0.0);
+
+		drawplane();
+
+	// Trigger the plane landing animation
+	if (planeY > 20.0)
+	{
+		planeLanding = true;
+	}
+}
+
+
+     void drawplane()// function to animate and crash plane
+   {
+   	
+    if (planeLanding)
+	{
+		//  downward movement speed of plane
+		planeY -= 2.5;
+	}
+
+	glBegin(GL_TRIANGLES);
+
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex2f(planeX, planeY );
+	glVertex2f(planeX, planeY + 10.0);
+	glVertex2f(planeX - 30.0, planeY);
+
+	glColor3f(0.2, 0.2, 0.2);
+	glVertex2f(planeX - 1.0, planeY - 2.0);
+	glVertex2f(planeX - 1.0, planeY + 5.0);
+	glVertex2f(planeX - 17.0, planeY + 5.0);
+
+	glEnd();
+   
+   
+   }
+
+   int main(int argc, char** argv) 
+   {
+      glutInit(&argc, argv);
+      glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+      glutInitWindowPosition(50,50);
+      glutInitWindowSize(500,500);
+      glutCreateWindow("BSCS 514 Lab #8");
+      init();
+      glutDisplayFunc(display);
+      glutReshapeFunc(reshape);
+      glutKeyboardFunc(keyboard);
+      glutTimerFunc(30, Timer, 1);
+      glutMainLoop();
+   }
+
+ 
+   
+    void drawlandscape()
+   {
+     /* Draw a box of grass */
+      glBegin(GL_QUADS);
+			glColor3f(0.0, 1.0, 0.0);
+			glVertex2f(250.0, 0.0);
+			glColor3f(0.0, 0.9, 0.0);
+			glVertex2f(250.0, 50.0);
+			glColor3f(0.0, 0.8, 0.0);
+			glVertex2f(0.0, 50.0);
+			glColor3f(0.0, 0.7, 0.0);
+			glVertex2f(0.0, 0.0);
+      glEnd();
+   
+     /* An attempt at a few snow covered mountains */
+   
+      glBegin(GL_TRIANGLES);
+			glColor3f(0.0, 0.0, 0.6);
+			glVertex2f(250.0, 50.0);
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex2f(200.0, 150.0);
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(150.0, 50.0);
+		   
+			//glBegin(GL_TRIANGLES);
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(200.0, 50.0);
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex2f(150.0, 150.0);
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(100.0, 50.0);
+		   
+			glColor3f(0.0, 0.0, 0.7);
+			glVertex2f(150.0, 50.0);
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex2f(100.0, 150.0);
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(50.0, 50.0);
+		   
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(100.0, 50.0);
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex2f(50.0, 150.0);
+			glColor3f(0.0, 0.0, 0.5);
+			glVertex2f(0.0, 50.0);
+   
+      glEnd();
+   
+     /* Draw the body of a windmill */
+      glBegin(GL_QUADS);
+			glColor3f(0.6, 0.6, 0.0);
+			glVertex2f(145.0, 50.0);
+			glVertex2f(135.0, 100.0);
+			glVertex2f(115.0, 100.0);
+			glVertex2f(105.0, 50.0);
+	  glEnd();
+       
+   }
+   
+   void init() 
+   {
+      glClearColor(0.8f, 0.8f, 1.0f, 1.0f);
+     
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      gluOrtho2D(0.0, 250.0,0.0, 250.0);
+	  
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+   }
+
+   void reshape(GLsizei w, GLsizei h) 
+   {
+      glViewport(0,0,w,h);
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      gluOrtho2D(0.0, 250.0,0.0, 250.0);
+	  glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+   }
+
+  
+
+  
+
+	 void keyboard(unsigned char key, int x, int y)
+   {
+      switch(key)
+      {
+         case 27: // ASCII code for the escape key
+            exit(0);
+            break;
+      }
+   }
+
+
+
