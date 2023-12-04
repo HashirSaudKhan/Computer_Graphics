@@ -15,7 +15,7 @@ This repository contains a simple animation program built using OpenGL and GLUT.
 2. Compile the code using a C++ compiler.
 3. Run the executable to see the animation.
 
-| Features    | Description | Test Text     |
-| :---        |    :----:   |          ---: |
-| Header      | Title       | Here's this   |
-| Paragraph   | Text        | And more      |
+| ## Features    | ## Instructions |
+| :---        |    :----:    | 
+| Header      | Title        | 
+| Paragraph   | Text         | 
